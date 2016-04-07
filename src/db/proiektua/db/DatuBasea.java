@@ -1,4 +1,4 @@
-package db.proiektua;
+package db.proiektua.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -47,7 +47,7 @@ public class DatuBasea {
 		Statement state = null;
 		try{
 			state = (Statement) conn.createStatement();
-			state.executeQuery(pQuery);
+			state.executeUpdate(pQuery);
 		}
 		catch(SQLException e){
 			e.printStackTrace();
