@@ -7,14 +7,29 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatuBasea {
-
-	private String erabiltzailea = "root";
-	private String pasahitza = "";
-	private static String db = "Bideokluba";
-	private static String url = "jdbc:mysql://localhost/"+db;
+	
+	private static DatuBasea nDatuBasea = null;
+	private String erabiltzailea;
+	private String pasahitza;
+	private static String db;
+	private static String url;
 	private Connection conn = null;
 
-	public DatuBasea() {
+	private DatuBasea() {
+		erabiltzailea = "root";
+		pasahitza = "";
+		db = "Bideokluba";
+		url = "jdbc:mysql://localhost/" + db + "?autoReconnect=true&useSSL=false";
+	}
+	
+	public static DatuBasea getDatuBasea(){
+		if(nDatuBasea==null){
+			nDatuBasea = new DatuBasea();
+		}
+		return nDatuBasea;
+	}
+	
+	protected void konexioaHasi(){
 		try{
 			Class.forName("com.mysql.jdbc.Connection");
 			conn = (Connection) DriverManager.getConnection(url,erabiltzailea, pasahitza);
@@ -23,10 +38,22 @@ public class DatuBasea {
 			}
 		}
 		catch(SQLException e){
-			System.out.println("Errore bat konexioan");
+			System.out.println("Errore bat konexioa sortzerakoan");
 		}
 		catch(ClassNotFoundException e){
 			System.out.println(e);
+		}
+	}
+	
+	protected void konexioaItxi(){
+		try {
+			conn.close();
+			if(conn.isClosed()){
+				System.out.println(url + " datu baseko konexioa itxita");
+			}
+		} catch (SQLException e) {
+			System.out.println("Errore bat konexioa ixterakoan");
+			e.printStackTrace();
 		}
 	}
 	
