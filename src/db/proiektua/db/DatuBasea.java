@@ -57,7 +57,7 @@ public class DatuBasea {
 		}
 	}
 	
-	public ResultSet getQuery(String pQuery){
+	protected ResultSet getQuery(String pQuery){
 		Statement state = null;
 		ResultSet emaitza = null;
 		try{
@@ -70,7 +70,7 @@ public class DatuBasea {
 		return emaitza;
 	}
 	
-	public void setQuery(String pQuery){
+	protected void setQuery(String pQuery){
 		Statement state = null;
 		try{
 			state = (Statement) conn.createStatement();

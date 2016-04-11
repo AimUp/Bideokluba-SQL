@@ -3,8 +3,10 @@ package db.proiektua.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Aginduak {
+public class Aginduak implements Observer{
 
 	private ResultSet erantzuna;
 	
@@ -27,5 +29,10 @@ public class Aginduak {
 		return pelikulak;
 	}
 	//konexioa.setQuery("INSERT INTO Pelikula VALUES ('5', 'DD', '2', 'E', '2000-1-1')");
-	
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
 }

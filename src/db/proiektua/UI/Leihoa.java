@@ -1,8 +1,10 @@
 package db.proiektua.UI;
 
+import java.awt.BorderLayout;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Leihoa extends JFrame implements Observer{
@@ -15,8 +17,8 @@ public class Leihoa extends JFrame implements Observer{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(350, 500);
 		setLocationRelativeTo(null);
+		setLayout(new BorderLayout());
 		setResizable(true);
-		setVisible(true);
 	}
 	
 	public static Leihoa getLeihoa(){
@@ -24,6 +26,11 @@ public class Leihoa extends JFrame implements Observer{
 			nLeihoa = new Leihoa();
 		}
 		return nLeihoa;
+	}
+	
+	public void logginaKargatu(){
+		getContentPane().add(new Logging(), BorderLayout.NORTH);
+		setVisible(true);
 	}
 
 	@Override
