@@ -3,10 +3,12 @@ package db.proiektua.logic;
 import java.util.ArrayList;
 
 import db.proiektua.db.Aginduak;
+import db.proiektua.db.DatuBasea;
 
 public class Main {
 
 	public static void main(String[] args) {
+
 		Aginduak agindu = new Aginduak();
 		
 		ArrayList<String> erantzuna = null;

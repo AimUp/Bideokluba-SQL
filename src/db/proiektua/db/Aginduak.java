@@ -16,9 +16,9 @@ public class Aginduak {
 		ArrayList<String> pelikulak = new ArrayList<String>();
 		try {
 			DatuBasea.getDatuBasea().konexioaHasi();
-			erantzuna = DatuBasea.getDatuBasea().getQuery("select * from pelikula");
+			erantzuna = DatuBasea.getDatuBasea().getQuery("select * from Bazkidea");
 			while(erantzuna.next()){
-				pelikulak.add(erantzuna.getString("kodea"));
+				pelikulak.add(erantzuna.getString("idBazkidea"));
 			}
 			DatuBasea.getDatuBasea().konexioaItxi();
 		} catch (SQLException e) {

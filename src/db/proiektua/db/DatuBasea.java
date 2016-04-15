@@ -13,13 +13,15 @@ public class DatuBasea {
 	private String pasahitza;
 	private static String db;
 	private static String url;
+	private static String url2;
 	private Connection conn = null;
 
 	private DatuBasea() {
 		erabiltzailea = "root";
-		pasahitza = "";
+		pasahitza = "anemateos";
 		db = "Bideokluba";
-		url = "jdbc:mysql://localhost/" + db + "?autoReconnect=true&useSSL=false";
+		url = "jdbc:mysql://localhost:3306/" + db;
+		url2 = "?autoReconnect=true&useSSL=false";
 	}
 	
 	public static DatuBasea getDatuBasea(){
@@ -29,10 +31,11 @@ public class DatuBasea {
 		return nDatuBasea;
 	}
 	
-	protected void konexioaHasi(){
+	public void konexioaHasi(){
 		try{
+	
 			Class.forName("com.mysql.jdbc.Connection");
-			conn = (Connection) DriverManager.getConnection(url,erabiltzailea, pasahitza);
+			conn = (Connection) DriverManager.getConnection(url+url2,erabiltzailea, pasahitza);
 			if(conn != null){
 				System.out.println(url + " datu basera konexioa");
 			}
