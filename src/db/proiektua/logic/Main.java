@@ -8,10 +8,8 @@ import db.proiektua.db.DatuBasea;
 public class Main {
 
 	public static void main(String[] args) {
-<<<<<<< HEAD
 
 		Aginduak agindu = new Aginduak();
-=======
 		Bideokluba.getBideokluba();
 		
 		/*Aginduak agindu = new Aginduak();
