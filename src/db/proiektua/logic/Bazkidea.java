@@ -74,26 +74,24 @@ public class Bazkidea {
 		return kreditua;
 	}
 
-	public void setKreditua(int kreditua) {
-		this.kreditua = kreditua;
+	public void setKreditua(int pKreditua) {
+		this.kreditua = pKreditua + kreditua;
 	}
 
 	public String getEgoera() {
 		return egoera;
 	}
 
-	public void setEgoera(String egoera) {
+	/*public void setEgoera(String egoera) {
 		this.egoera = egoera;
-	}
+	}*/
 
 	public int getNoiztikBezero() {
 		return noiztikBezero;
 	}
 
-	public void setNoiztikBezero(int noiztikBezero) {
+	/*public void setNoiztikBezero(int noiztikBezero) {
 		this.noiztikBezero = noiztikBezero;
-	}
-	
-	
+	}*/
 	
 }
