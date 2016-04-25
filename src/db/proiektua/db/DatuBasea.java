@@ -14,11 +14,14 @@ public class DatuBasea {
 	private static String db;
 	private static String url;
 	private static String url2;
+	
 	private Connection conn = null;
+	private Statement st = null;
+	private ResultSet rs = null;
 
 	private DatuBasea() {
 		erabiltzailea = "root";
-		pasahitza = "anemateos";
+		pasahitza = "";
 		db = "Bideokluba";
 		url = "jdbc:mysql://localhost:3306/" + db;
 		url2 = "?autoReconnect=true&useSSL=false";
@@ -31,13 +34,17 @@ public class DatuBasea {
 		return nDatuBasea;
 	}
 	
-	public void konexioaHasi(){
+	//KONEXIOA HASI
+	protected void konexioaHasi(){
 		try{
-	
+			//driver-a kargatu
 			Class.forName("com.mysql.jdbc.Connection");
+			//konexioa
 			conn = (Connection) DriverManager.getConnection(url+url2,erabiltzailea, pasahitza);
 			if(conn != null){
 				System.out.println(url + " datu basera konexioa");
+				//statement
+				st = conn.createStatement();
 			}
 		}
 		catch(SQLException e){
@@ -48,8 +55,11 @@ public class DatuBasea {
 		}
 	}
 	
+	//KONEXIOA ITXI
 	protected void konexioaItxi(){
 		try {
+			rs.close();
+			st.close();
 			conn.close();
 			if(conn.isClosed()){
 				System.out.println(url + " datu baseko konexioa itxita");
@@ -60,24 +70,23 @@ public class DatuBasea {
 		}
 	}
 	
+	//ESKAERA BAT EGIN (INFORMAZIOA ATERA)
 	protected ResultSet getQuery(String pQuery){
-		Statement state = null;
-		ResultSet emaitza = null;
 		try{
-			state = (Statement) conn.createStatement();
-			emaitza = state.executeQuery(pQuery);
+			st = (Statement) conn.createStatement();
+			rs = st.executeQuery(pQuery);
 		}
 		catch(SQLException e){
 			e.printStackTrace();
 		}
-		return emaitza;
+		return rs;
 	}
 	
+	//ESKAERA BAT BIDALI (INFORMAZIOA IGO)
 	protected void setQuery(String pQuery){
-		Statement state = null;
 		try{
-			state = (Statement) conn.createStatement();
-			state.executeUpdate(pQuery);
+			st = (Statement) conn.createStatement();
+			st.executeUpdate(pQuery);
 		}
 		catch(SQLException e){
 			e.printStackTrace();

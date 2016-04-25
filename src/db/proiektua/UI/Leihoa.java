@@ -4,8 +4,9 @@ import java.awt.BorderLayout;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
+
+import db.proiektua.logic.Bideokluba;
 
 public class Leihoa extends JFrame implements Observer{
 
@@ -13,6 +14,8 @@ public class Leihoa extends JFrame implements Observer{
 	private static Leihoa nLeihoa = null;
 	
 	private Leihoa(){
+		Bideokluba.getBideokluba().addObserver(this);
+		
 		setTitle("BIDEOKLUBA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(350, 500);
