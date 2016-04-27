@@ -1,0 +1,5 @@
+package db.proiektua.logic;
+
+public enum EnumAginduak {
+	ERABILTZAILEOKERRA, PASAHITZOKERRA, AMINISTRATZAILEAKARGATU, BEZEROAKARGATU
+}
