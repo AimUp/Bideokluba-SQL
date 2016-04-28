@@ -36,7 +36,7 @@ public class Bideokluba extends Observable{
 				}
 				else{
 					setChanged();
-					notifyObservers(EnumAginduak.BEZEROAKARGATU);
+					notifyObservers(EnumAginduak.BAZKIDEAKARGATU);
 				}
 			}
 		}
@@ -48,5 +48,9 @@ public class Bideokluba extends Observable{
 			setChanged();
 			notifyObservers(EnumAginduak.PASAHITZOKERRA);
 		}
+	}
+	
+	public Erabiltzailea getUnekoErabiltzailea(){
+		return unekoErabiltzailea;
 	}
 }

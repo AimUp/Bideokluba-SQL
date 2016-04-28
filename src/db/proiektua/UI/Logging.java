@@ -3,7 +3,6 @@ package db.proiektua.UI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -16,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
 import db.proiektua.logic.Bideokluba;
 
@@ -28,9 +28,9 @@ public class Logging extends JPanel{
 
 	public Logging(){
 		setLayout(new BorderLayout());
+		JPanel datuSarrera = new JPanel(new SpringLayout());
 		
 		//Erabiltzailea
-		JPanel erabiltzailePanela = new JPanel(new FlowLayout());
 		JLabel izena = new JLabel("Erabiltzailea: ");
 		erabSarr = new JTextField(15);
 		erabSarr.addKeyListener(new KeyListener() {
@@ -53,12 +53,10 @@ public class Logging extends JPanel{
 				okAkzioa();
 		    }
 		});
-		erabiltzailePanela.add(izena, FlowLayout.LEFT);
-		erabiltzailePanela.add(erabSarr, FlowLayout.CENTER);
-		
+		datuSarrera.add(izena);
+		datuSarrera.add(erabSarr);
 		
 		//Pasahitza
-		JPanel pasahitzPanela = new JPanel(new FlowLayout());
 		JLabel pass = new JLabel("Pasahitza: ");
 		pasSarr = new JPasswordField();
 		pasSarr.setPreferredSize(new Dimension(190, 26));
@@ -82,10 +80,11 @@ public class Logging extends JPanel{
 				okAkzioa();
 		    }
 		});
-		pasahitzPanela.add(pass, FlowLayout.LEFT);
-		pasahitzPanela.add(pasSarr, FlowLayout.CENTER);
+		datuSarrera.add(pass);
+		datuSarrera.add(pasSarr);
 		
-	
+		SpringUtilities.makeCompactGrid(datuSarrera,2, 2, 6, 6, 6, 6);
+		
 		//OK botoia
 		JButton okBotoia = new JButton();
 		okBotoia.setText("OK");
@@ -96,11 +95,6 @@ public class Logging extends JPanel{
 				
 			}
 		});
-		
-		JPanel datuSarrera = new JPanel();
-		datuSarrera.setLayout(new BorderLayout());
-		datuSarrera.add(erabiltzailePanela, BorderLayout.NORTH);
-		datuSarrera.add(pasahitzPanela, BorderLayout.CENTER);
 		
 		add(datuSarrera, BorderLayout.NORTH);
 		add(okBotoia, BorderLayout.CENTER);	

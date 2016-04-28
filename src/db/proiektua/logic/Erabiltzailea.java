@@ -1,6 +1,8 @@
 package db.proiektua.logic;
 
-public abstract class Erabiltzailea{
+import java.util.Observable;
+
+public abstract class Erabiltzailea extends Observable{
 
 	private int idBazkidea;
 	private String erabiltzailea;

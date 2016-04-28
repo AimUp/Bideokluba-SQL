@@ -73,11 +73,13 @@ public class DatuBasea {
 	//ESKAERA BAT EGIN (INFORMAZIOA ATERA)
 	protected ResultSet getQuery(String pQuery){
 		try{
-			st = (Statement) conn.createStatement();
-			rs = st.executeQuery(pQuery);
+			if(conn != null){
+				st = (Statement) conn.createStatement();
+				rs = st.executeQuery(pQuery);
+			}
 		}
 		catch(SQLException e){
-			e.printStackTrace();
+			System.out.println("Konexiorik ez");
 		}
 		return rs;
 	}
@@ -85,11 +87,13 @@ public class DatuBasea {
 	//ESKAERA BAT BIDALI (INFORMAZIOA IGO)
 	protected void setQuery(String pQuery){
 		try{
-			st = (Statement) conn.createStatement();
-			st.executeUpdate(pQuery);
+			if(conn != null){
+				st = (Statement) conn.createStatement();
+				st.executeUpdate(pQuery);
+			}
 		}
 		catch(SQLException e){
-			e.printStackTrace();
+			System.out.println("Konexiorik ez");
 		}
 	}
 }

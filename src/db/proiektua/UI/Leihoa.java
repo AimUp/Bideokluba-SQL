@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import db.proiektua.logic.Bideokluba;
 import db.proiektua.logic.EnumAginduak;
@@ -24,6 +25,9 @@ public class Leihoa extends JFrame implements Observer{
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		setResizable(true);
+		
+		log = new Logging();
+		panelaAldatu(log);
 	}
 	
 	public static Leihoa getLeihoa(){
@@ -31,12 +35,6 @@ public class Leihoa extends JFrame implements Observer{
 			nLeihoa = new Leihoa();
 		}
 		return nLeihoa;
-	}
-	
-	public void logginaKargatu(){
-		log = new Logging();
-		getContentPane().add(log, BorderLayout.NORTH);
-		setVisible(true);
 	}
 
 	@Override
@@ -48,15 +46,18 @@ public class Leihoa extends JFrame implements Observer{
 					break;
 				case PASAHITZOKERRA: log.pasahitzOkerra();
 					break;
-				case BEZEROAKARGATU: 	getContentPane().removeAll();
-										getContentPane().add(new BezeroPanela());
-										setVisible(true);
+				case BAZKIDEAKARGATU: 	panelaAldatu(new BazkidePanela());
 					break;
-				case AMINISTRATZAILEAKARGATU:  	getContentPane().removeAll();
-												getContentPane().add(new AdminPanela());
-												setVisible(true);
+				case AMINISTRATZAILEAKARGATU:  	panelaAldatu(new AdminPanela());
 					break;
 			}
 		}
+	}
+	
+	public void panelaAldatu(JPanel panela){
+		getContentPane().removeAll();
+		getContentPane().add(panela, BorderLayout.NORTH);
+		repaint();
+		setVisible(true);
 	}
 }
