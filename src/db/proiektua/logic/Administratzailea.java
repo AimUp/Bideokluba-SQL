@@ -39,3 +39,4 @@ public class Administratzailea extends Erabiltzailea{
 		return p;
 	}
 }
+
