@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.mysql.jdbc.PreparedStatement;
+
 public class DatuBasea {
 	
 	private static DatuBasea nDatuBasea = null;
@@ -21,7 +23,7 @@ public class DatuBasea {
 
 	private DatuBasea() {
 		erabiltzailea = "root";
-		pasahitza = "";
+		pasahitza = "root";
 		db = "Bideokluba";
 		url = "jdbc:mysql://localhost:3306/" + db;
 		url2 = "?autoReconnect=true&useSSL=false";
@@ -43,8 +45,7 @@ public class DatuBasea {
 			conn = (Connection) DriverManager.getConnection(url+url2,erabiltzailea, pasahitza);
 			if(conn != null){
 				System.out.println(url + " datu basera konexioa");
-				//statement
-				st = conn.createStatement();
+				//st = conn.createStatement();
 			}
 		}
 		catch(SQLException e){
@@ -73,11 +74,13 @@ public class DatuBasea {
 	//ESKAERA BAT EGIN (INFORMAZIOA ATERA)
 	protected ResultSet getQuery(String pQuery){
 		try{
-			st = (Statement) conn.createStatement();
-			rs = st.executeQuery(pQuery);
+			if(conn != null){
+				st = (Statement) conn.createStatement();
+				rs = st.executeQuery(pQuery);
+			}
 		}
 		catch(SQLException e){
-			e.printStackTrace();
+			System.out.println("Konexiorik ez");
 		}
 		return rs;
 	}
@@ -85,11 +88,13 @@ public class DatuBasea {
 	//ESKAERA BAT BIDALI (INFORMAZIOA IGO)
 	protected void setQuery(String pQuery){
 		try{
-			st = (Statement) conn.createStatement();
-			st.executeUpdate(pQuery);
+			if(conn != null){
+				st = (Statement) conn.createStatement();
+				st.executeUpdate(pQuery);
+			}
 		}
 		catch(SQLException e){
-			e.printStackTrace();
+			System.out.println("Konexiorik ez");
 		}
 	}
 }

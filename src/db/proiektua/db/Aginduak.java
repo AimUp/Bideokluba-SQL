@@ -3,13 +3,13 @@ package db.proiektua.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
+import db.proiektua.logic.Administratzailea;
 import db.proiektua.logic.Bazkidea;
+import db.proiektua.logic.Erabiltzailea;
 import db.proiektua.logic.Pelikula;
 
-public class Aginduak implements Observer{
+public class Aginduak{
 
 	private ResultSet erantzuna;
 	
@@ -36,7 +36,7 @@ public class Aginduak implements Observer{
 	//CREATE
 	public void createBazkidea(Bazkidea b){
 		DatuBasea.getDatuBasea().konexioaHasi();
-		DatuBasea.getDatuBasea().setQuery("insert into bazkidea values ('"+b.getIdBazkidea()+"','"+b.getPasahitza()+"', '"+b.getIzena()+"', '"+b.getAbizena()+"', '"+b.getHelbidea()+"', '"+b.getKreditua()+"', '"+b.getEgoera()+"', '"+b.getNoiztikBezero()+"')");
+		//DatuBasea.getDatuBasea().setQuery("insert into bazkidea values ('"+b.getIdBazkidea()+"','"+b.getPasahitza()+"', '"+b.getIzena()+"', '"+b.getAbizena()+"', '"+b.getHelbidea()+"'");
 		DatuBasea.getDatuBasea().konexioaItxi();
 	}
 	
@@ -47,24 +47,7 @@ public class Aginduak implements Observer{
 	}
 	
 	//GET
-	public ArrayList<Bazkidea> getBazkideak(){
-		ArrayList<Bazkidea> bazkideak = new ArrayList<Bazkidea>();
-		DatuBasea.getDatuBasea().konexioaHasi();
-			ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Bazkidea");
-			try {
-				while(rs.next()){
-					Bazkidea b = new Bazkidea(rs.getInt("idBazkidea"), rs.getString("pasahitza"), rs.getString("izena"), rs.getString("abizena"), rs.getString("helbidea"), rs.getInt("kreditua"), rs.getBoolean("egoera"), rs.getString("noiztikBezero"));
-					bazkideak.add(b);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-		DatuBasea.getDatuBasea().konexioaItxi();
-		return bazkideak;
-	}
-	
-	public ArrayList<Pelikula> getPelikulak(){
+	/*public ArrayList<Pelikula> getPelikulak(){
 		ArrayList<Pelikula> pelikulak = new ArrayList<Pelikula>();
 		DatuBasea.getDatuBasea().konexioaHasi();
 		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Pelikula");
@@ -78,10 +61,26 @@ public class Aginduak implements Observer{
 		}
 		DatuBasea.getDatuBasea().konexioaItxi();
 		return pelikulak;	
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		
+	}*/
+	
+	public Erabiltzailea erabiltzaileaLortu(String pErabiltzailea){
+		DatuBasea.getDatuBasea().konexioaHasi();
+		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Bazkidea where erabiltzailea='"+ pErabiltzailea +"'");
+		Erabiltzailea erabiltzailea = null;
+		try {
+			if(rs!=null){
+				rs.next();
+				if(rs.getBoolean("administratzailea")){
+					erabiltzailea = new Administratzailea(rs.getInt("idBazkidea"), rs.getString("erabiltzailea"), rs.getString("pasahitza"), rs.getString("izena"), rs.getString("abizena"), rs.getString("helbidea"));
+	
+				}
+				else{
+					erabiltzailea = new Bazkidea(rs.getInt("idBazkidea"), rs.getString("erabiltzailea"), rs.getString("pasahitza"), rs.getString("izena"), rs.getString("abizena"), rs.getString("helbidea"));
+				}
+			}
+		} catch (SQLException e) {
+			erabiltzailea = null;
+		}
+		return erabiltzailea;
 	}
 }
