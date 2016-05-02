@@ -1,5 +1,7 @@
 package db.proiektua.logic;
 
+import db.proiektua.db.Aginduak;
+
 public class Pelikula {
 
 	private String izena;
@@ -7,6 +9,7 @@ public class Pelikula {
 	private int prezioa;
 	private String egoera;
 	private String data;
+	private Aginduak agindua = new Aginduak();
 	
 	public Pelikula(String pIzena, int pIdPelikula, int pPrezioa, String pEgoera, String pData) {
 		this.izena = pIzena;
@@ -16,23 +19,26 @@ public class Pelikula {
 		this.data = pData;
 	}
 
-	public String getIzena() {
-		return izena;
+	public void altaEman(){
+		egoera = "alta";
+		agindua.pelikulaEgoeraAldatu(egoera);
 	}
-
-	public int getIdPelikula() {
-		return idPelikula;
+	
+	public void bajaEman(){
+		egoera = "baja";
+		agindua.pelikulaEgoeraAldatu(egoera);
 	}
-
-	public int getPrezioa() {
-		return prezioa;
+	
+	public boolean alokatutaDago(){
+		boolean erantzuna = true;
+		if(egoera == "alta"){
+			erantzuna = false;
+		}
+		return erantzuna;
 	}
-
-	public String getEgoera() {
-		return egoera;
-	}
-
-	public String getData() {
-		return data;
+	
+	public void deskatalogatu(){
+		egoera = "deskatalogatuta";
+		agindua.pelikulaEgoeraAldatu(egoera);
 	}
 }

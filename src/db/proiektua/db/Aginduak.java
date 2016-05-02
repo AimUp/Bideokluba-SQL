@@ -34,35 +34,15 @@ public class Aginduak{
 	
 	
 	//CREATE
-	public void createBazkidea(Bazkidea b){
-		DatuBasea.getDatuBasea().konexioaHasi();
-		//DatuBasea.getDatuBasea().setQuery("insert into bazkidea values ('"+b.getIdBazkidea()+"','"+b.getPasahitza()+"', '"+b.getIzena()+"', '"+b.getAbizena()+"', '"+b.getHelbidea()+"'");
-		DatuBasea.getDatuBasea().konexioaItxi();
+	public void createBazkidea(String pPasahitza, String pErabiltzaile, String pIzena, String pAbizena, String pHelbidea, int pKreditua, boolean pEgoera, String pBazNoiztik){
+		DatuBasea.getDatuBasea().getQuery("insert into Bazkidea values ('"+pPasahitza+"', '"+pIzena+"', '"+pAbizena+"', '"+pHelbidea+"', '"+pKreditua+"', '"+pEgoera+"', '"+pBazNoiztik+"')");
 	}
 	
-	public void createPelikula(Pelikula p){
-		DatuBasea.getDatuBasea().konexioaHasi();
-		DatuBasea.getDatuBasea().setQuery("insert into pelikula values ('"+p.getIzena()+"', '"+p.getIdPelikula()+"', '"+p.getPrezioa()+"', '"+p.getEgoera()+"', '"+p.getData()+"')");
-		DatuBasea.getDatuBasea().konexioaHasi();
+	public void pelikulaBerriBatSartu(String pIzenurua, int pPrezioa, String pEgoera, String pData){
+		//TODO
 	}
 	
 	//GET
-	/*public ArrayList<Pelikula> getPelikulak(){
-		ArrayList<Pelikula> pelikulak = new ArrayList<Pelikula>();
-		DatuBasea.getDatuBasea().konexioaHasi();
-		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Pelikula");
-		try {
-			while(rs.next()){
-				Pelikula p = new Pelikula(rs.getString("izenburua"), rs.getInt("idPelikula"), rs.getInt("prezioa"), rs.getString("egoera"), rs.getString("data"));
-				pelikulak.add(p);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		DatuBasea.getDatuBasea().konexioaItxi();
-		return pelikulak;	
-	}*/
-	
 	public Erabiltzailea erabiltzaileaLortu(String pErabiltzailea){
 		DatuBasea.getDatuBasea().konexioaHasi();
 		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Bazkidea where erabiltzailea='"+ pErabiltzailea +"'");
@@ -82,5 +62,27 @@ public class Aginduak{
 			erabiltzailea = null;
 		}
 		return erabiltzailea;
+	}
+	
+	public Pelikula bilatuPelikula(String pIzenburua){
+		Pelikula p=null;
+		return p;
+	}
+	
+	//ALTER
+	public void bazkideBatenEgoeraAldatu(String pErabiltzaile, boolean pEgoera){
+		//TODO
+	}
+	
+	public void pelikulaEgoeraAldatu(String pEgoera){
+		//TODO
+	}
+	
+	public void datuPertsonalakAldatu(){
+		//TODO
+	}
+	
+	public void kredituaGehitu(int pKredit){
+		//TODO
 	}
 }

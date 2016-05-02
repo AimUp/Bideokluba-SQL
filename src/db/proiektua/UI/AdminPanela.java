@@ -27,7 +27,7 @@ public class AdminPanela extends JPanel{
 		bazkidearenEgoera.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				Leihoa.getLeihoa().panelaAldatu(new BazkideEgoeraPanela());
 			}
 		});
 		add(bazkidearenEgoera);

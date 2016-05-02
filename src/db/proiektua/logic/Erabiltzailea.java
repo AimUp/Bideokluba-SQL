@@ -34,5 +34,10 @@ public abstract class Erabiltzailea extends Observable{
 		else berdina = false;
 		return berdina;
 	}
+	
+	public String[] getInfo(){
+		String[] s = {};
+		return s;
+	}
 
 }
