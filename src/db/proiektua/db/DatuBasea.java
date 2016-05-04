@@ -92,6 +92,7 @@ public class DatuBasea {
 			}
 		}
 		catch(SQLException e){
+			e.printStackTrace();
 			System.out.println("Konexiorik ez");
 		}
 	}

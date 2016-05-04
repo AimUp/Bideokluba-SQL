@@ -1,30 +1,65 @@
 package db.proiektua.UI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridBagLayout;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
+import db.proiektua.logic.Administratzailea;
+import db.proiektua.logic.Bazkidea;
 import db.proiektua.logic.Bideokluba;
 import db.proiektua.logic.EnumAginduak;
+import db.proiektua.logic.Erabiltzailea;
 
 public class Leihoa extends JFrame implements Observer{
 
 	private static final long serialVersionUID = 1L;
 	private static Leihoa nLeihoa = null;
 	private Logging log;
+	private JMenuBar menuBar;
 	
 	private Leihoa(){
 		Bideokluba.getBideokluba().addObserver(this);
 		
 		setTitle("BIDEOKLUBA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(350, 500);
-		setLocationRelativeTo(null);
+		setSize(350, 360);
 		setLayout(new BorderLayout());
+		setLocationRelativeTo(null);
 		setResizable(true);
+		setBackground(new Color(238, 238, 238));
+		
+		menuBar = new JMenuBar();
+		menuBar.setBorder(null);
+		menuBar.setBackground(new Color(238, 238, 238));
+		menuBar.setLayout(new GridBagLayout());
+		JMenu menua = new JMenu("MENUA");
+		menua.addMenuListener(new MenuListener() {
+			@Override
+			public void menuSelected(MenuEvent e) {
+				System.out.println(Leihoa.getLeihoa().getSize());
+				Erabiltzailea era = Bideokluba.getBideokluba().getUnekoErabiltzailea();
+				if(era instanceof Administratzailea){
+					panelaAldatu(new AdminPanela());
+				}
+				else if(era instanceof Bazkidea){
+					panelaAldatu(new BazkidePanela());
+				}
+			}
+			@Override
+			public void menuDeselected(MenuEvent e){}
+			@Override
+			public void menuCanceled(MenuEvent e){}
+		});
+		menuBar.add(menua);
 		
 		log = new Logging();
 		panelaAldatu(log);
@@ -56,6 +91,9 @@ public class Leihoa extends JFrame implements Observer{
 	
 	public void panelaAldatu(JPanel panela){
 		getContentPane().removeAll();
+		if(!(panela instanceof Logging) && !(panela instanceof AdminPanela) && !(panela instanceof BazkidePanela)){
+			setJMenuBar(menuBar);
+		}
 		getContentPane().add(panela, BorderLayout.NORTH);
 		repaint();
 		setVisible(true);

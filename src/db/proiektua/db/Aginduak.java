@@ -34,8 +34,9 @@ public class Aginduak{
 	
 	
 	//CREATE
-	public void createBazkidea(String pPasahitza, String pErabiltzaile, String pIzena, String pAbizena, String pHelbidea, int pKreditua, boolean pEgoera, String pBazNoiztik){
-		DatuBasea.getDatuBasea().getQuery("insert into Bazkidea values ('"+pPasahitza+"', '"+pIzena+"', '"+pAbizena+"', '"+pHelbidea+"', '"+pKreditua+"', '"+pEgoera+"', '"+pBazNoiztik+"')");
+	public void createBazkidea(char[] pPasahitza, String pErabiltzaile, String pIzena, String pAbizena, String pHelbidea, int pKreditua, boolean pEgoera, String pBazNoiztik){
+		String pass= new String(pPasahitza);
+		DatuBasea.getDatuBasea().getQuery("insert into Bazkidea values ('"+pass+"', '"+pIzena+"', '"+pAbizena+"', '"+pHelbidea+"', '"+pKreditua+"', '"+pEgoera+"', '"+pBazNoiztik+"')");
 	}
 	
 	public void pelikulaBerriBatSartu(String pIzenurua, int pPrezioa, String pEgoera, String pData){
@@ -51,11 +52,10 @@ public class Aginduak{
 			if(rs!=null){
 				rs.next();
 				if(rs.getBoolean("administratzailea")){
-					erabiltzailea = new Administratzailea(rs.getInt("idBazkidea"), rs.getString("erabiltzailea"), rs.getString("pasahitza"), rs.getString("izena"), rs.getString("abizena"), rs.getString("helbidea"));
-	
+					erabiltzailea = new Administratzailea(rs.getInt("idBazkidea"), rs.getString("erabiltzailea"), rs.getString("pasahitza"), rs.getString("izena"), rs.getString("abizena"), rs.getString("helbidea"), rs.getInt("Kreditua"), rs.getString("BazkideaNoiztik"), rs.getBoolean("egoera"));
 				}
 				else{
-					erabiltzailea = new Bazkidea(rs.getInt("idBazkidea"), rs.getString("erabiltzailea"), rs.getString("pasahitza"), rs.getString("izena"), rs.getString("abizena"), rs.getString("helbidea"));
+					erabiltzailea = new Bazkidea(rs.getInt("idBazkidea"), rs.getString("erabiltzailea"), rs.getString("pasahitza"), rs.getString("izena"), rs.getString("abizena"), rs.getString("helbidea"), rs.getInt("Kreditua"), rs.getString("BazkideaNoiztik"),rs.getBoolean("egoera"));
 				}
 			}
 		} catch (SQLException e) {

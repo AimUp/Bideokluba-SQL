@@ -19,13 +19,8 @@ public class Pelikula {
 		this.data = pData;
 	}
 
-	public void altaEman(){
-		egoera = "alta";
-		agindua.pelikulaEgoeraAldatu(egoera, idPelikula);
-	}
-	
-	public void bajaEman(){
-		egoera = "baja";
+	public void egoeraAldatu(String pEgo){
+		egoera = pEgo;
 		agindua.pelikulaEgoeraAldatu(egoera, idPelikula);
 	}
 	
@@ -37,8 +32,8 @@ public class Pelikula {
 		return erantzuna;
 	}
 	
-	public void deskatalogatu(){
-		egoera = "deskatalogatuta";
-		agindua.pelikulaEgoeraAldatu(egoera, idPelikula);
+	public String[] getInfo(){
+		String[] s = {String.valueOf(idPelikula), izena, String.valueOf(prezioa), egoera, data};
+		return s;
 	}
 }

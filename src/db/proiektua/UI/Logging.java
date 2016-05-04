@@ -92,7 +92,6 @@ public class Logging extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				okAkzioa();
-				
 			}
 		});
 		
@@ -109,6 +108,7 @@ public class Logging extends JPanel{
 		errorea.setBackground(getBackground());
 		errorea.setForeground(new Color(255, 0, 0));
 		add(errorea, BorderLayout.SOUTH);
+		Leihoa.getLeihoa().repaint();
 		Leihoa.getLeihoa().setVisible(true);
 	}
 	
@@ -120,6 +120,7 @@ public class Logging extends JPanel{
 		errorea.setBackground(getBackground());
 		errorea.setForeground(new Color(255, 0, 0));
 		add(errorea, BorderLayout.SOUTH);
+		Leihoa.getLeihoa().repaint();
 		Leihoa.getLeihoa().setVisible(true);
 	}
 	

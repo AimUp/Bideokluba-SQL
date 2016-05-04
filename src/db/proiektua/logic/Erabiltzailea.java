@@ -11,15 +11,19 @@ public abstract class Erabiltzailea extends Observable{
 	private String abizena;
 	private String helbidea;
 	private int kreditua;
+	private String bazkideaNoiztik;
 	private boolean egoera;
 	
-	public Erabiltzailea(int pIdBazkidea, String pErabiltzailea, String pPasahitza, String pIzena, String pAbizena, String pHelbidea){
+	public Erabiltzailea(int pIdBazkidea, String pErabiltzailea, String pPasahitza, String pIzena, String pAbizena, String pHelbidea, int pKreditua, String pBazkideaNoiztik, boolean pEgoera){
 		idBazkidea = pIdBazkidea;
 		erabiltzailea = pErabiltzailea;
 		pasahitza = pPasahitza;
 		izena = pIzena;
 		abizena = pAbizena;
 		helbidea = pHelbidea;
+		kreditua = pKreditua;
+		bazkideaNoiztik = pBazkideaNoiztik;
+		egoera = pEgoera;
 	}
 	
 	public boolean pasahitzaKonprobatu(char[] pPasahitza){
@@ -36,8 +40,15 @@ public abstract class Erabiltzailea extends Observable{
 	}
 	
 	public String[] getInfo(){
-		String[] s = {};
+		String ego;
+		if(egoera) ego = "Alta";
+		else ego = "Baja";
+		String[] s = {String.valueOf(idBazkidea), erabiltzailea, izena, abizena, helbidea, String.valueOf(kreditua), bazkideaNoiztik, ego};
 		return s;
+	}
+	
+	public void egoeraAldatu(){
+		//TODO
 	}
 
 }
