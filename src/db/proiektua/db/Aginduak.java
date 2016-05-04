@@ -39,7 +39,7 @@ public class Aginduak{
 	}
 	
 	public void pelikulaBerriBatSartu(String pIzenurua, int pPrezioa, String pEgoera, String pData){
-		//TODO
+		DatuBasea.getDatuBasea().setQuery("insert into Pelikula values ('" + pIzenurua + "', '" + pPrezioa + "', " + pEgoera + "', " + pData + "')");
 	}
 	
 	//GET
@@ -66,23 +66,34 @@ public class Aginduak{
 	
 	public Pelikula bilatuPelikula(String pIzenburua){
 		Pelikula p=null;
+		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Pelikula where izenburua='" + pIzenburua + "'");
+		try{
+			if(rs!=null){
+				rs.next();
+				p = new Pelikula(rs.getString("izenburua"), rs.getInt("idPelikula"), rs.getInt("prezioa"), rs.getString("egoera"), rs.getString("data"));
+			}
+		} catch(SQLException e){
+			p = null;
+		}
 		return p;
 	}
 	
-	//ALTER
-	public void bazkideBatenEgoeraAldatu(String pErabiltzaile, boolean pEgoera){
-		//TODO
+	//Update
+	public void bazkideBatenEgoeraAldatu(String pIzena, String pAbizena, boolean pEgoera){
+		DatuBasea.getDatuBasea().setQuery("update Bazkidea set egoera='" + pEgoera + "' where izena='" + pIzena + "', abizena='" + pAbizena + "'");
 	}
 	
-	public void pelikulaEgoeraAldatu(String pEgoera){
-		//TODO
+	public void pelikulaEgoeraAldatu(String pEgoera, int pIdPelikula){
+		DatuBasea.getDatuBasea().setQuery("update Pelikula set egoera='" + pEgoera + "' where idPelikula='" + pIdPelikula + "'");
 	}
 	
 	public void datuPertsonalakAldatu(){
-		//TODO
+		//Zer aldatu nahi duen behar da
+		//DatuBasea.getDatuBasea().setQuery("update Bazkidea set egoera='" + pEgoera + "' where izena='" + pIzena + "', abizena='" + pAbizena + "'");
 	}
 	
 	public void kredituaGehitu(int pKredit){
-		//TODO
+		//Bazkidearen daturen bat behar da
+		//DatuBasea.getDatuBasea().setQuery("update Bazkidea set kreditua='kreditua + " + pKredit + "'");
 	}
 }

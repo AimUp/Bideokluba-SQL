@@ -21,12 +21,12 @@ public class Pelikula {
 
 	public void altaEman(){
 		egoera = "alta";
-		agindua.pelikulaEgoeraAldatu(egoera);
+		agindua.pelikulaEgoeraAldatu(egoera, idPelikula);
 	}
 	
 	public void bajaEman(){
 		egoera = "baja";
-		agindua.pelikulaEgoeraAldatu(egoera);
+		agindua.pelikulaEgoeraAldatu(egoera, idPelikula);
 	}
 	
 	public boolean alokatutaDago(){
@@ -39,6 +39,6 @@ public class Pelikula {
 	
 	public void deskatalogatu(){
 		egoera = "deskatalogatuta";
-		agindua.pelikulaEgoeraAldatu(egoera);
+		agindua.pelikulaEgoeraAldatu(egoera, idPelikula);
 	}
 }

@@ -14,8 +14,8 @@ public class Administratzailea extends Erabiltzailea{
 		agindua.createBazkidea(pPasahitza, pErabiltzaile, pIzena, pAbizena, pHelbidea, pKreditua, pEgoera, pBazNoiztik);
 	}
 	
-	public void bazkideBatenEgoeraAldatu(String pErabiltzaile, boolean pEgoera){
-		agindua.bazkideBatenEgoeraAldatu(pErabiltzaile, pEgoera);
+	public void bazkideBatenEgoeraAldatu(String pIzena,String pAbizena, boolean pEgoera){
+		agindua.bazkideBatenEgoeraAldatu(pIzena, pAbizena, pEgoera);
 	}
 	
 	public void pelikulaBerriBatSartu(String pIzenurua, int pPrezioa, String pEgoera, String pData){
@@ -27,15 +27,13 @@ public class Administratzailea extends Erabiltzailea{
 		pelikula.deskatalogatu();
 	}
 	
-	public Erabiltzailea erabiltzaileaBilatu(String pErab){
-		Erabiltzailea e = null;
-		//TODO
+	public Erabiltzailea erabiltzaileaBilatu(String pErabiltzailea){
+		Erabiltzailea e = agindua.erabiltzaileaLortu(pErabiltzailea);
 		return e;
 	}
 
 	public Pelikula pelikulaBilatu(String pIzenb){
-		Pelikula p = null;
-		//TODO
+		Pelikula p = agindua.bilatuPelikula(pIzenb);
 		return p;
 	}
 }
