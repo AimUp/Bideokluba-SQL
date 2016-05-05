@@ -1,5 +1,5 @@
 package db.proiektua.logic;
 
 public enum Egoera {
-	LIBRE, ALOKATUA, DESKATALOGATUA
+	LIBRE, ALOKATUA, DESKATALOGATU
 }

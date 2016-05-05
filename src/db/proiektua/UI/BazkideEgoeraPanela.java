@@ -32,7 +32,7 @@ public class BazkideEgoeraPanela extends JPanel implements ActionListener{
 		setLayout(new BorderLayout());
 		
 		JPanel bilatuPanela = new JPanel(new GridLayout(2,1));
-		JLabel labela = new JLabel("BAJA EMAN NAHI DEN ERABILTZAILEA BILATU", SwingConstants.CENTER);
+		JLabel labela = new JLabel("ERABILTZAILEA BILATU", SwingConstants.CENTER);
 		izena = new  JTextField();
 		izena.addActionListener(new AbstractAction(){
 			private static final long serialVersionUID = 1L;
@@ -105,5 +105,6 @@ public class BazkideEgoeraPanela extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		erabiltzailea.egoeraAldatu();
+		erabiltzaileaInprimatu(erabiltzailea);
 	}
 }

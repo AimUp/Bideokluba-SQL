@@ -2,6 +2,8 @@ package db.proiektua.logic;
 
 import java.util.Observable;
 
+import db.proiektua.db.Aginduak;
+
 public abstract class Erabiltzailea extends Observable{
 
 	private int idBazkidea;
@@ -13,6 +15,7 @@ public abstract class Erabiltzailea extends Observable{
 	private int kreditua;
 	private String bazkideaNoiztik;
 	private boolean egoera;
+	private Aginduak agindua = new Aginduak();
 	
 	public Erabiltzailea(int pIdBazkidea, String pErabiltzailea, String pPasahitza, String pIzena, String pAbizena, String pHelbidea, int pKreditua, String pBazkideaNoiztik, boolean pEgoera){
 		idBazkidea = pIdBazkidea;
@@ -48,7 +51,8 @@ public abstract class Erabiltzailea extends Observable{
 	}
 	
 	public void egoeraAldatu(){
-		//TODO
+		egoera = !egoera;
+		agindua.bazkideBatenEgoeraAldatu(erabiltzailea, egoera);
 	}
 
 }

@@ -27,9 +27,9 @@ public class PelikulaEgoeraPanela extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JTextField izenburu;
 	private JTextArea errorea = new JTextArea();
-	private JPanel peliInfo = new JPanel();
+	private JPanel peliInfo;
 	private Pelikula pelikula;
-	private JComboBox<String> comBox;
+	private JComboBox<String> comBox = new JComboBox<String>();
 
 	public PelikulaEgoeraPanela(){
 		setLayout(new BorderLayout());
@@ -41,9 +41,7 @@ public class PelikulaEgoeraPanela extends JPanel implements ActionListener{
 			private static final long serialVersionUID = 1L;
 			@Override
 		    public void actionPerformed(ActionEvent e){
-				if(!izenburu.getText().isEmpty()){
-					bilatuAkzioa();
-				}
+				bilatuAkzioa();
 		    }
 		});
 		bilatuPanela.add(labela);
@@ -60,6 +58,12 @@ public class PelikulaEgoeraPanela extends JPanel implements ActionListener{
 			}
 		});
 		add(bilatuBotoia, BorderLayout.CENTER);
+		
+		peliInfo = new JPanel();
+		
+		comBox.addItem(Egoera.LIBRE.toString());
+		comBox.addItem(Egoera.ALOKATUA.toString());
+		comBox.addItem(Egoera.DESKATALOGATU.toString());
 	}
 	
 	private void bilatuAkzioa(){
@@ -83,8 +87,8 @@ public class PelikulaEgoeraPanela extends JPanel implements ActionListener{
 	
 	private void pelikulaInprimatu(Pelikula p){
 		remove(errorea);
-		remove(peliInfo);
 		
+		peliInfo = new JPanel();
 		peliInfo.setLayout(new BorderLayout(0,20));
 		JPanel inf = new JPanel(new GridLayout(5, 2));
 		Border padding = BorderFactory.createEmptyBorder(30, 10, 10, 10);
@@ -99,24 +103,20 @@ public class PelikulaEgoeraPanela extends JPanel implements ActionListener{
 		}
 		peliInfo.add(inf, BorderLayout.NORTH);
 		
-		JPanel aldatu = new JPanel(new BorderLayout());
-		
-		String[] egoSele = {Egoera.LIBRE.toString(), Egoera.ALOKATUA.toString(), Egoera.DESKATALOGATUA.toString()};
-		comBox = new JComboBox<String>(egoSele);
-		aldatu.add(comBox, BorderLayout.NORTH);
 		JButton botoia = new JButton("Aldatu");
 		botoia.addActionListener(this);
-		aldatu.add(botoia, BorderLayout.CENTER);
 		
-		peliInfo.add(aldatu, BorderLayout.CENTER);
+		peliInfo.add(comBox, BorderLayout.CENTER);
+		peliInfo.add(botoia,  BorderLayout.SOUTH);
 		add(peliInfo, BorderLayout.SOUTH);
 		Leihoa.getLeihoa().setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(Egoera.DESKATALOGATUA.toString() == (String)comBox.getSelectedItem()){
-			pelikula.egoeraAldatu(Egoera.DESKATALOGATUA.toString());
+		System.out.println(comBox.getSelectedIndex());
+		if(Egoera.DESKATALOGATU.toString() == (String)comBox.getSelectedItem()){
+			pelikula.egoeraAldatu(Egoera.DESKATALOGATU.toString());
 		}
 		else if(Egoera.ALOKATUA.toString() == (String)comBox.getSelectedItem()){
 			pelikula.egoeraAldatu(Egoera.ALOKATUA.toString());
@@ -124,5 +124,6 @@ public class PelikulaEgoeraPanela extends JPanel implements ActionListener{
 		else{
 			pelikula.egoeraAldatu(Egoera.LIBRE.toString());
 		}
+		pelikulaInprimatu(pelikula);
 	}
 }

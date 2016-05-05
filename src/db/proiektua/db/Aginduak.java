@@ -34,13 +34,15 @@ public class Aginduak{
 	
 	
 	//CREATE
-	public void createBazkidea(char[] pPasahitza, String pErabiltzaile, String pIzena, String pAbizena, String pHelbidea, int pKreditua, boolean pEgoera, String pBazNoiztik){
+	public void createBazkidea(char[] pPasahitza, String pErabiltzaile, String pIzena, String pAbizena, String pHelbidea, int pKreditua, int pEgoera, String pBazNoiztik){
 		String pass= new String(pPasahitza);
-		DatuBasea.getDatuBasea().getQuery("insert into Bazkidea values ('"+pass+"', '"+pIzena+"', '"+pAbizena+"', '"+pHelbidea+"', '"+pKreditua+"', '"+pEgoera+"', '"+pBazNoiztik+"')");
+		System.out.println(pass);
+		DatuBasea.getDatuBasea().setQuery("insert into Bazkidea (erabiltzailea,pasahitza,izena,abizena,helbidea,kreditua,egoera,administratzailea,bazkideaNoiztik) "
+										+ "values ('"+pErabiltzaile+"','"+pass+"','"+pIzena+"','"+pAbizena+"','"+pHelbidea+"','"+pKreditua+"','"+pEgoera+"', '0' ,'"+pBazNoiztik+"')");
 	}
 	
 	public void pelikulaBerriBatSartu(String pIzenurua, int pPrezioa, String pEgoera, String pData){
-		DatuBasea.getDatuBasea().setQuery("insert into Pelikula values ('" + pIzenurua + "', '" + pPrezioa + "', " + pEgoera + "', " + pData + "')");
+		DatuBasea.getDatuBasea().setQuery("insert into Pelikula (izenburua,prezioa,egoera,data) values ('" + pIzenurua + "', '" + pPrezioa + "', '" + pEgoera + "', '" + pData + "')");
 	}
 	
 	//GET
@@ -79,8 +81,10 @@ public class Aginduak{
 	}
 	
 	//Update
-	public void bazkideBatenEgoeraAldatu(String pIzena, String pAbizena, boolean pEgoera){
-		DatuBasea.getDatuBasea().setQuery("update Bazkidea set egoera='" + pEgoera + "' where izena='" + pIzena + "', abizena='" + pAbizena + "'");
+	public void bazkideBatenEgoeraAldatu(String erabiltzailea, boolean pEgoera){
+		int ego = 0;
+		if(pEgoera) ego = 1;
+		DatuBasea.getDatuBasea().setQuery("update Bazkidea set egoera='" + ego + "' where erabiltzailea='" + erabiltzailea + "'");
 	}
 	
 	public void pelikulaEgoeraAldatu(String pEgoera, int pIdPelikula){
