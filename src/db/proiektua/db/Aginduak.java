@@ -34,11 +34,11 @@ public class Aginduak{
 	
 	
 	//CREATE
-	public void createBazkidea(char[] pPasahitza, String pErabiltzaile, String pIzena, String pAbizena, String pHelbidea, int pKreditua, int pEgoera, String pBazNoiztik){
+	public void createBazkidea(char[] pPasahitza, String pErabiltzaile, int pKreditua, int pEgoera, String pBazNoiztik){
 		String pass= new String(pPasahitza);
 		System.out.println(pass);
-		DatuBasea.getDatuBasea().setQuery("insert into Bazkidea (erabiltzailea,pasahitza,izena,abizena,helbidea,kreditua,egoera,administratzailea,bazkideaNoiztik) "
-										+ "values ('"+pErabiltzaile+"','"+pass+"','"+pIzena+"','"+pAbizena+"','"+pHelbidea+"','"+pKreditua+"','"+pEgoera+"', '0' ,'"+pBazNoiztik+"')");
+		DatuBasea.getDatuBasea().setQuery("insert into Bazkidea (erabiltzailea,pasahitza,kreditua,egoera,administratzailea,bazkideaNoiztik) "
+										+ "values ('"+pErabiltzaile+"','"+pass+"','"+pKreditua+"','"+pEgoera+"', '0' ,'"+pBazNoiztik+"')");
 	}
 	
 	public void pelikulaBerriBatSartu(String pIzenurua, int pPrezioa, String pEgoera, String pData){
@@ -91,9 +91,8 @@ public class Aginduak{
 		DatuBasea.getDatuBasea().setQuery("update Pelikula set egoera='" + pEgoera + "' where idPelikula='" + pIdPelikula + "'");
 	}
 	
-	public void datuPertsonalakAldatu(){
-		//Zer aldatu nahi duen behar da
-		//DatuBasea.getDatuBasea().setQuery("update Bazkidea set egoera='" + pEgoera + "' where izena='" + pIzena + "', abizena='" + pAbizena + "'");
+	public void datuPertsonalakAldatu(String erabiltzailea,String[] aldatu){
+		DatuBasea.getDatuBasea().setQuery("update Bazkidea set izena='"+aldatu[1]+"', abizena='"+aldatu[2]+"', helbidea='"+aldatu[3]+"', pasahitza='"+aldatu[4]+"', erabiltzailea='"+aldatu[0]+"' where erabiltzailea='" + erabiltzailea + "'");
 	}
 	
 	public void kredituaGehitu(int pKredit){

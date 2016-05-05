@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
-import Salbuespenak.StringLuzea;
+import db.proiektua.Salbuespenak.StringLuzea;
 import db.proiektua.logic.Administratzailea;
 import db.proiektua.logic.Bideokluba;
 

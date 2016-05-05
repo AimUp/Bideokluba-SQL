@@ -4,9 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,25 +18,39 @@ import db.proiektua.Salbuespenak.BazkideaBadago;
 import db.proiektua.Salbuespenak.PasahitzDesberdina;
 import db.proiektua.Salbuespenak.StringLuzea;
 import db.proiektua.db.Aginduak;
-import db.proiektua.logic.Administratzailea;
+import db.proiektua.logic.Bazkidea;
 import db.proiektua.logic.Bideokluba;
 
-public class BazkideaSortuPanela extends JPanel implements ActionListener{
+public class DatuPertsonalakPanela extends JPanel implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
-	private JTextField erabTx;
+	private JTextField[] textFieldak;
 	private JPasswordField pass;
 	private JPasswordField passErrepikatu;
 	private JLabel mezua = new JLabel();
-
-	public BazkideaSortuPanela(){
+	private Bazkidea bazkide;
+	
+	public DatuPertsonalakPanela(){
+		bazkide = (Bazkidea) Bideokluba.getBideokluba().getUnekoErabiltzailea();
+		String[] inf = bazkide.getInfo();
+		
 		setLayout(new BorderLayout());
 		JPanel panela = new JPanel(new SpringLayout());
 		
-		JLabel l = new JLabel("Erabiltzailea:");
-		panela.add(l);
-		erabTx = new JTextField();
-		panela.add(erabTx);
+		String[] labelak = {"Erabiltzailea:", "Izena:", "Abizena:", "Helbidea:"};
+		textFieldak = new JTextField[labelak.length];
+		
+		for(int x=0; x<labelak.length; x++){
+			JLabel l = new JLabel(labelak[x]);
+			panela.add(l);
+			textFieldak[x] = new JTextField(inf[x+1]);
+			panela.add(textFieldak[x]);
+		}
+		
+		JLabel kred = new JLabel("Kredituak");
+		JLabel kredZen = new JLabel(inf[5]);
+		panela.add(kred);
+		panela.add(kredZen, SwingConstants.CENTER);
 		
 		JLabel label1 = new JLabel("Pasahitza:");
 		panela.add(label1);
@@ -50,7 +62,7 @@ public class BazkideaSortuPanela extends JPanel implements ActionListener{
 		passErrepikatu = new JPasswordField();
 		panela.add(passErrepikatu);
 		
-		SpringUtilities.makeCompactGrid(panela,3, 2, 6, 6, 6, 6);
+		SpringUtilities.makeCompactGrid(panela,labelak.length+3, 2, 6, 6, 6, 6);
 		
 		JButton okBotoia = new JButton("OK");
 		okBotoia.addActionListener(this);
@@ -70,7 +82,7 @@ public class BazkideaSortuPanela extends JPanel implements ActionListener{
 	
 	private void ondo(){
 		remove(mezua);
-		mezua = new JLabel("Erabiltzailea ondo sortu da", SwingConstants.CENTER);
+		mezua = new JLabel("Datuak ondo aldatu egin dira", SwingConstants.CENTER);
 		mezua.setOpaque(true);
 		mezua.setForeground(new Color(0, 255, 0));
 		add(mezua, BorderLayout.SOUTH);
@@ -81,29 +93,36 @@ public class BazkideaSortuPanela extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		try{
 			Aginduak a = new Aginduak();
-			if(a.erabiltzaileaLortu(erabTx.getText())!=null){
+			if(a.erabiltzaileaLortu(textFieldak[0].getText())!=null){
 				{throw new BazkideaBadago();}
 			}
 			try{
-				if(erabTx.getText().length()>30){
+				for(int x=0; x<textFieldak.length-1; x++){
+					if(textFieldak[x].getText().length()>30){
+						{throw new StringLuzea();}
+					}
+				}
+				if(textFieldak[textFieldak.length-1].getText().length()>50){
 					{throw new StringLuzea();}
 				}
 				try{
 					if(!Arrays.equals(pass.getPassword(), passErrepikatu.getPassword())){
 						{throw new PasahitzDesberdina();}
 					}
-					Administratzailea admi = (Administratzailea) Bideokluba.getBideokluba().getUnekoErabiltzailea();
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-					admi.bazkideBerriaSortu(pass.getPassword(), erabTx.getText(), 0, 1, sdf.format(new Date()));
-					ondo();
-				}catch(PasahitzDesberdina ex){
+					Bazkidea baz = (Bazkidea) Bideokluba.getBideokluba().getUnekoErabiltzailea();
+					String p = new String(pass.getPassword());
+					String[] aldatu = {textFieldak[0].getText(), textFieldak[1].getText(), textFieldak[2].getText(), textFieldak[3].getText(), p};
+					baz.datuPertsonalakAldatu(aldatu);
+					ondo();	
+				}
+				catch(PasahitzDesberdina ex){
 					errorea("Bi pasahitzek ez dute koinziditzen");
 				}
-			}catch(StringLuzea ex){
-				errorea("Izen edo pasahitz luzeegia");
+			}catch(StringLuzea exc){
+				errorea("Erroreren bat datuak sartzean");
 			}
 		}catch(BazkideaBadago ex){
-			errorea("Erabiltzaile hau dagoeneko haukeratuta dago");
+			errorea("rabiltzaile hau dagoeneko haukeratuta dago");
 		}
-	}
+	}	
 }

@@ -10,8 +10,8 @@ public class Administratzailea extends Erabiltzailea{
 		super(pIdBazkidea, pErabiltzailea, pPasahitza, pIzena, pAbizena, pHelbidea, pKreditua, pBazkideaNoiztik, pEgoera);
 	}
 	
-	public void bazkideBerriaSortu(char[] pPasahitza, String pErabiltzaile, String pIzena, String pAbizena, String pHelbidea, int pKreditua, int pEgoera, String pBazNoiztik){
-		agindua.createBazkidea(pPasahitza, pErabiltzaile, pIzena, pAbizena, pHelbidea, pKreditua, pEgoera, pBazNoiztik);
+	public void bazkideBerriaSortu(char[] pPasahitza, String pErabiltzaile, int pKreditua, int pEgoera, String pBazNoiztik){
+		agindua.createBazkidea(pPasahitza, pErabiltzaile, pKreditua, pEgoera, pBazNoiztik);
 	}
 	
 	public void pelikulaBerriBatSartu(String pIzenurua, int pPrezioa, String pData){

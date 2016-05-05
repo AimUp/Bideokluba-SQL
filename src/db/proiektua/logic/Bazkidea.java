@@ -10,8 +10,8 @@ public class Bazkidea extends Erabiltzailea{
 		super(pIdBazkidea, pErabiltzailea, pPasahitza, pIzena, pAbizena, pHelbidea, pKreditua, pBazkideaNoiztik, pEgoera);
 	}
 	
-	public void datuPertsonalakAldatu(){
-		agindua.datuPertsonalakAldatu();
+	public void datuPertsonalakAldatu(String[] aldatu){
+		datuakAldatu(aldatu);
 	}
 	
 	public void kredituaGehitu(int pKreditua){
@@ -35,6 +35,5 @@ public class Bazkidea extends Erabiltzailea{
 		Pelikula pelikula = agindua.bilatuPelikula(pPelikula);
 		pelikula.egoeraAldatu(Egoera.LIBRE.toString());
 	}
-	
 }
 

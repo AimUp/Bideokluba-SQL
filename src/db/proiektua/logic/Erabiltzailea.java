@@ -54,5 +54,14 @@ public abstract class Erabiltzailea extends Observable{
 		egoera = !egoera;
 		agindua.bazkideBatenEgoeraAldatu(erabiltzailea, egoera);
 	}
-
+	
+	protected void datuakAldatu(String[] aldatu){
+		String erabiltzaileZaharra = erabiltzailea;
+		if(aldatu[0].length()>0) erabiltzailea = aldatu[0];
+		if(aldatu[1].length()>0) izena = aldatu[1];
+		if(aldatu[2].length()>0) abizena = aldatu[2];
+		if(aldatu[3].length()>0) helbidea = aldatu[3];
+		if(aldatu[4].length()>0) pasahitza = aldatu[4];	
+		agindua.datuPertsonalakAldatu(erabiltzaileZaharra,aldatu);
+	}
 }
