@@ -106,7 +106,7 @@ public class Logging extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Bideokluba.getBideokluba().setUnekoErabiltzailea(null);
-				Leihoa.getLeihoa().panelaAldatu(null);
+				Leihoa.getLeihoa().panelaAldatu(new KontuLibreaPanela());
 			}
 		});
 		behePanela.add(librea, BorderLayout.NORTH);

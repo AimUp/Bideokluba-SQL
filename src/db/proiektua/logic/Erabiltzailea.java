@@ -66,7 +66,11 @@ public abstract class Erabiltzailea extends Observable{
 	}
 	
 	protected void kredituaAldatu(int pKred){
-		kreditua = pKred;
-		agindua.kredituaGehitu(erabiltzailea, pKred);
+		kreditua = kreditua + pKred;
+		agindua.kredituaEguneratu(erabiltzailea, kreditua);
+	}
+	
+	public int getKreditua(){
+		return kreditua;
 	}
 }

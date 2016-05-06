@@ -57,4 +57,8 @@ public class Bideokluba extends Observable{
 	public void setUnekoErabiltzailea(Erabiltzailea e){
 		unekoErabiltzailea = e;
 	}
+	
+	public Pelikulak[] estreinaldiakLortu(){
+		//TODO
+	}
 }

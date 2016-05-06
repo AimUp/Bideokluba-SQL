@@ -36,7 +36,7 @@ public class BazkidePanela extends JPanel{
 		pelikulaSortu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				Leihoa.getLeihoa().panelaAldatu(new PelikulaAlokatuPanela());
 			}
 		});
 		add(pelikulaSortu);
@@ -45,7 +45,7 @@ public class BazkidePanela extends JPanel{
 		pelikularenEgoera.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				Leihoa.getLeihoa().panelaAldatu(new PelikulaItzuliPanela());
 			}
 		});
 		add(pelikularenEgoera);		

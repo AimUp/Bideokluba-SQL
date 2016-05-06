@@ -1,5 +1,7 @@
 package db.proiektua.logic;
 
+import java.util.ArrayList;
+
 import db.proiektua.db.Aginduak;
 
 public class Bazkidea extends Erabiltzailea{
@@ -34,6 +36,10 @@ public class Bazkidea extends Erabiltzailea{
 	public void pelikulaItzuli(String pPelikula){
 		Pelikula pelikula = agindua.bilatuPelikula(pPelikula);
 		pelikula.egoeraAldatu(Egoera.LIBRE.toString());
+	}
+	
+	public ArrayList<Pelikula> alokatuakLortu(){
+		//TODO
 	}
 }
 

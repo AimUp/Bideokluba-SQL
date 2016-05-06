@@ -84,7 +84,7 @@ public class Aginduak{
 		//TODO
 	}
 	
-	public Pelikula[] alokatuenZerrendaLortu(){
+	public ArrayList<Pelikula> alokatuenZerrendaLortu(){
 		//TODO
 	}
 	
@@ -103,16 +103,15 @@ public class Aginduak{
 		DatuBasea.getDatuBasea().setQuery("update Bazkidea set izena='"+aldatu[1]+"', abizena='"+aldatu[2]+"', helbidea='"+aldatu[3]+"', pasahitza='"+aldatu[4]+"', erabiltzailea='"+aldatu[0]+"' where erabiltzailea='" + erabiltzailea + "'");
 	}
 	
-	public void kredituaGehitu(String erabiltzaile, int pKredit){
-		//ALDATU? KREDITUA GEHITU BEHAR DU, HONEK KREDITUA ALDATUKO DU
+	public void kredituaEguneratu(String erabiltzaile, int pKredit){
 		DatuBasea.getDatuBasea().setQuery("update Bazkidea set kreditua='"+pKredit+"' where erabiltzailea='"+erabiltzaile+"'");
 	}
 
-	public void pelikulaAlokatu(){
+	public void pelikulaAlokatu(String erabiltzailea, int pelikulaZenb){
 		//TODO
 	}
 	
-	public void pelikulaItzuli(){
+	public void pelikulaItzuli(String erabiltzailea, int pelikulaZenb){
 		//TODO
 	}
 }
