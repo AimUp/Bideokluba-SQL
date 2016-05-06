@@ -20,7 +20,22 @@ public class Pelikula {
 	}
 
 	public void egoeraAldatu(String pEgo){
-		egoera = pEgo;
+		switch(pEgo){
+			case "KATALOGATU":
+				if(alokatutaDago()){
+					egoera = Egoera.ALOKATUA.toString();
+				}
+				break;
+			case "EZABATU": 
+				if(alokatutaDago()){
+					egoera = Egoera.DESKATALOGATU.toString();
+				}
+				else{
+					egoera = "EZABATUA";
+					agindua.pelikulaEzabatu(idPelikula);
+				}
+				break;
+		}
 		agindua.pelikulaEgoeraAldatu(egoera, idPelikula);
 	}
 	
@@ -30,6 +45,10 @@ public class Pelikula {
 			erantzuna = true;
 		}
 		return erantzuna;
+	}
+	
+	public int getPrezioa(){
+		return prezioa;
 	}
 	
 	public String[] getInfo(){

@@ -123,7 +123,8 @@ public class PelikulaAlokatuPanela extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(b.pelikulaAlokatu(pelikula)) ondo();
-		else errorea("Pelikula hau dagoeneko alokatuta dago"); ;
+		if(b.pelikulaAlokatu(pelikula) == 0) ondo();
+		else if(b.pelikulaAlokatu(pelikula) == -1) errorea("Ez duzu kreditu nahikorik"); 
+		else if(b.pelikulaAlokatu(pelikula) == -2) errorea("Pelikula hau dagoeneko alokatuta dago");
 	}
 }

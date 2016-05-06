@@ -1,5 +1,6 @@
 package db.proiektua.logic;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 import db.proiektua.db.Aginduak;
@@ -58,7 +59,7 @@ public class Bideokluba extends Observable{
 		unekoErabiltzailea = e;
 	}
 	
-	public Pelikulak[] estreinaldiakLortu(){
-		//TODO
+	public ArrayList<Pelikula> estreinaldiakLortu(){
+		return aginduak.estreinuenZerrendaLortu();
 	}
 }

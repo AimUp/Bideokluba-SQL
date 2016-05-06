@@ -31,7 +31,7 @@ public class Leihoa extends JFrame implements Observer{
 		
 		setTitle("BIDEOKLUBA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(350, 360);
+		setSize(350, 510);
 		setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
 		setResizable(true);
@@ -50,6 +50,9 @@ public class Leihoa extends JFrame implements Observer{
 				}
 				else if(era instanceof Bazkidea){
 					panelaAldatu(new BazkidePanela());
+				}
+				else if(era == null){
+					panelaAldatu(new Logging());
 				}
 			}
 			@Override

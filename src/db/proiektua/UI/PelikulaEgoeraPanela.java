@@ -19,7 +19,6 @@ import javax.swing.border.Border;
 
 import db.proiektua.logic.Administratzailea;
 import db.proiektua.logic.Bideokluba;
-import db.proiektua.logic.Egoera;
 import db.proiektua.logic.Pelikula;
 
 public class PelikulaEgoeraPanela extends JPanel implements ActionListener{
@@ -61,9 +60,8 @@ public class PelikulaEgoeraPanela extends JPanel implements ActionListener{
 		
 		peliInfo = new JPanel();
 		
-		comBox.addItem(Egoera.LIBRE.toString());
-		comBox.addItem(Egoera.ALOKATUA.toString());
-		comBox.addItem(Egoera.DESKATALOGATU.toString());
+		comBox.addItem("KATALOGATU");
+		comBox.addItem("EZABATU");
 	}
 	
 	private void bilatuAkzioa(){
@@ -115,14 +113,11 @@ public class PelikulaEgoeraPanela extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(comBox.getSelectedIndex());
-		if(Egoera.DESKATALOGATU.toString() == (String)comBox.getSelectedItem()){
-			pelikula.egoeraAldatu(Egoera.DESKATALOGATU.toString());
-		}
-		else if(Egoera.ALOKATUA.toString() == (String)comBox.getSelectedItem()){
-			pelikula.egoeraAldatu(Egoera.ALOKATUA.toString());
+		if("EZABATU" == (String)comBox.getSelectedItem()){
+			pelikula.egoeraAldatu("EZABATU");
 		}
 		else{
-			pelikula.egoeraAldatu(Egoera.LIBRE.toString());
+			pelikula.egoeraAldatu("KATALOGATU");
 		}
 		pelikulaInprimatu(pelikula);
 	}

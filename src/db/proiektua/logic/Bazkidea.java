@@ -20,24 +20,27 @@ public class Bazkidea extends Erabiltzailea{
 		kredituaAldatu(pKreditua);
 	}
 	
-	public boolean pelikulaAlokatu(Pelikula pPelikula){
-		boolean alokatuAhalDa = true;
-		if(pPelikula.alokatutaDago()){
-				alokatuAhalDa = false;
-		}else{
-			agindua.pelikulaAlokatu(getId(), Integer.valueOf(pPelikula.getInfo()[0]));
-			pPelikula.egoeraAldatu(Egoera.ALOKATUA.toString());
+	public int pelikulaAlokatu(Pelikula pPelikula){
+		int e = 0; //0: Ondo, -1: Krediturik ez, -2: Alokatuta dagoeneko
+		if(!pPelikula.alokatutaDago()){
+			if(pPelikula.getPrezioa()<getKreditua()){
+				agindua.pelikulaAlokatu(getId(), Integer.valueOf(pPelikula.getInfo()[0]));
+				kredituaKendu(pPelikula.getPrezioa());
+				pPelikula.egoeraAldatu(Egoera.ALOKATUA.toString());
+			}
+			else e = -1;
 		}
-		return alokatuAhalDa;
+		else e = -2;
+		return e;
 	}
 	
 	public void pelikulaItzuli(Pelikula pPelikula){
-		agindua.pelikulaItzuli(getErabiltzailea(), Integer.valueOf(pPelikula.getInfo()[0]));
+		agindua.pelikulaItzuli(getId(), Integer.valueOf(pPelikula.getInfo()[0]));
 		pPelikula.egoeraAldatu(Egoera.LIBRE.toString());
 	}
 	
 	public ArrayList<Pelikula> alokatuakLortu(){
-		//TODO
+		return agindua.alokatuenZerrendaLortu(getId());
 	}
 }
 
