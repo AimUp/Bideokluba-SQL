@@ -53,4 +53,8 @@ public class Bideokluba extends Observable{
 	public Erabiltzailea getUnekoErabiltzailea(){
 		return unekoErabiltzailea;
 	}
+	
+	public void setUnekoErabiltzailea(Erabiltzailea e){
+		unekoErabiltzailea = e;
+	}
 }

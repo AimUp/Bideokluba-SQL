@@ -48,9 +48,9 @@ public class DatuPertsonalakPanela extends JPanel implements ActionListener{
 		}
 		
 		JLabel kred = new JLabel("Kredituak");
-		JLabel kredZen = new JLabel(inf[5]);
+		JLabel kredZen = new JLabel(inf[5], SwingConstants.CENTER);
 		panela.add(kred);
-		panela.add(kredZen, SwingConstants.CENTER);
+		panela.add(kredZen);
 		
 		JLabel label1 = new JLabel("Pasahitza:");
 		panela.add(label1);

@@ -27,7 +27,7 @@ public class BazkidePanela extends JPanel{
 		bazkidearenEgoera.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				Leihoa.getLeihoa().panelaAldatu(new KredituaGehituPanela());
 			}
 		});
 		add(bazkidearenEgoera);

@@ -64,4 +64,9 @@ public abstract class Erabiltzailea extends Observable{
 		if(aldatu[4].length()>0) pasahitza = aldatu[4];	
 		agindua.datuPertsonalakAldatu(erabiltzaileZaharra,aldatu);
 	}
+	
+	protected void kredituaAldatu(int pKred){
+		kreditua = pKred;
+		agindua.kredituaGehitu(erabiltzailea, pKred);
+	}
 }

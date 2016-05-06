@@ -25,6 +25,7 @@ public class Logging extends JPanel{
 	private JTextField erabSarr;
 	private JPasswordField pasSarr;
 	private JTextArea errorea = new JTextArea();
+	private JPanel behePanela = new JPanel(new BorderLayout());
 
 	public Logging(){
 		setLayout(new BorderLayout());
@@ -96,30 +97,43 @@ public class Logging extends JPanel{
 		});
 		
 		add(datuSarrera, BorderLayout.NORTH);
-		add(okBotoia, BorderLayout.CENTER);	
+		add(okBotoia, BorderLayout.CENTER);
+		
+		
+		JButton librea = new JButton();
+		librea.setText("KONTU LIBREA");
+		librea.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Bideokluba.getBideokluba().setUnekoErabiltzailea(null);
+				Leihoa.getLeihoa().panelaAldatu(null);
+			}
+		});
+		behePanela.add(librea, BorderLayout.NORTH);
+		add(behePanela, BorderLayout.SOUTH);
 	}
 	
 	public void erabiltzaileOkerra(){
-		remove(errorea);
+		behePanela.remove(errorea);
 		erabSarr.setText("");
 		pasSarr.setText("");
 		errorea.setText("Erabiltzaile okerra sartu duzu");
 		errorea.setEditable(false);
 		errorea.setBackground(getBackground());
 		errorea.setForeground(new Color(255, 0, 0));
-		add(errorea, BorderLayout.SOUTH);
+		behePanela.add(errorea, BorderLayout.SOUTH);
 		Leihoa.getLeihoa().repaint();
 		Leihoa.getLeihoa().setVisible(true);
 	}
 	
 	public void pasahitzOkerra(){
-		remove(errorea);
+		behePanela.remove(errorea);
 		pasSarr.setText("");
 		errorea.setText("Pasahitz okerra sartu duzu");
 		errorea.setEditable(false);
 		errorea.setBackground(getBackground());
 		errorea.setForeground(new Color(255, 0, 0));
-		add(errorea, BorderLayout.SOUTH);
+		behePanela.add(errorea, BorderLayout.SOUTH);
 		Leihoa.getLeihoa().repaint();
 		Leihoa.getLeihoa().setVisible(true);
 	}

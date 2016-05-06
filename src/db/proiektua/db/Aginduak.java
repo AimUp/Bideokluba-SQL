@@ -80,6 +80,14 @@ public class Aginduak{
 		return p;
 	}
 	
+	public Pelikula[] estreinuenZerrendaLortu(){
+		//TODO
+	}
+	
+	public Pelikula[] alokatuenZerrendaLortu(){
+		//TODO
+	}
+	
 	//Update
 	public void bazkideBatenEgoeraAldatu(String erabiltzailea, boolean pEgoera){
 		int ego = 0;
@@ -95,8 +103,16 @@ public class Aginduak{
 		DatuBasea.getDatuBasea().setQuery("update Bazkidea set izena='"+aldatu[1]+"', abizena='"+aldatu[2]+"', helbidea='"+aldatu[3]+"', pasahitza='"+aldatu[4]+"', erabiltzailea='"+aldatu[0]+"' where erabiltzailea='" + erabiltzailea + "'");
 	}
 	
-	public void kredituaGehitu(int pKredit){
-		//Bazkidearen daturen bat behar da
-		//DatuBasea.getDatuBasea().setQuery("update Bazkidea set kreditua='kreditua + " + pKredit + "'");
+	public void kredituaGehitu(String erabiltzaile, int pKredit){
+		//ALDATU? KREDITUA GEHITU BEHAR DU, HONEK KREDITUA ALDATUKO DU
+		DatuBasea.getDatuBasea().setQuery("update Bazkidea set kreditua='"+pKredit+"' where erabiltzailea='"+erabiltzaile+"'");
+	}
+
+	public void pelikulaAlokatu(){
+		//TODO
+	}
+	
+	public void pelikulaItzuli(){
+		//TODO
 	}
 }

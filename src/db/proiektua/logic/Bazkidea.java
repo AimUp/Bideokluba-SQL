@@ -15,7 +15,7 @@ public class Bazkidea extends Erabiltzailea{
 	}
 	
 	public void kredituaGehitu(int pKreditua){
-		agindua.kredituaGehitu(pKreditua);
+		kredituaAldatu(pKreditua);
 	}
 	
 	public void pelikulaAlokatu(String pPelikula){

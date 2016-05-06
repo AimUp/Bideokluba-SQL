@@ -2,10 +2,10 @@ package db.proiektua.UI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -40,12 +40,10 @@ public class Leihoa extends JFrame implements Observer{
 		menuBar = new JMenuBar();
 		menuBar.setBorder(null);
 		menuBar.setBackground(new Color(238, 238, 238));
-		menuBar.setLayout(new GridBagLayout());
 		JMenu menua = new JMenu("MENUA");
 		menua.addMenuListener(new MenuListener() {
 			@Override
 			public void menuSelected(MenuEvent e) {
-				System.out.println(Leihoa.getLeihoa().getSize());
 				Erabiltzailea era = Bideokluba.getBideokluba().getUnekoErabiltzailea();
 				if(era instanceof Administratzailea){
 					panelaAldatu(new AdminPanela());
@@ -60,6 +58,20 @@ public class Leihoa extends JFrame implements Observer{
 			public void menuCanceled(MenuEvent e){}
 		});
 		menuBar.add(menua);
+		
+		JMenu itxi = new JMenu("SAIOA ITXI");
+		itxi.addMenuListener(new MenuListener() {
+			@Override
+			public void menuSelected(MenuEvent e) {
+				panelaAldatu(new Logging());
+			}
+			@Override
+			public void menuDeselected(MenuEvent e){}
+			@Override
+			public void menuCanceled(MenuEvent e){}
+		});
+		menuBar.add(Box.createHorizontalGlue());
+		menuBar.add(itxi);
 		
 		log = new Logging();
 		panelaAldatu(log);
@@ -91,6 +103,7 @@ public class Leihoa extends JFrame implements Observer{
 	
 	public void panelaAldatu(JPanel panela){
 		getContentPane().removeAll();
+		setJMenuBar(null);
 		if(!(panela instanceof Logging) && !(panela instanceof AdminPanela) && !(panela instanceof BazkidePanela)){
 			setJMenuBar(menuBar);
 		}
