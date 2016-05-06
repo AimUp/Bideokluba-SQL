@@ -25,9 +25,9 @@ public class Pelikula {
 	}
 	
 	public boolean alokatutaDago(){
-		boolean erantzuna = true;
-		if(egoera == "alta"){
-			erantzuna = false;
+		boolean erantzuna = false;
+		if(!egoera.equals(Egoera.LIBRE.toString())){
+			erantzuna = true;
 		}
 		return erantzuna;
 	}

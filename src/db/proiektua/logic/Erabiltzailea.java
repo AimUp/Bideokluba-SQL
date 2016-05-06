@@ -73,4 +73,13 @@ public abstract class Erabiltzailea extends Observable{
 	public int getKreditua(){
 		return kreditua;
 	}
+	
+	public int getId(){
+		return idBazkidea;
+	}
+	
+	public Pelikula pelikulaBilatu(String pIzenb){
+		Pelikula p = agindua.bilatuPelikula(pIzenb);
+		return p;
+	}
 }

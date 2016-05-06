@@ -22,10 +22,5 @@ public class Administratzailea extends Erabiltzailea{
 		Erabiltzailea e = agindua.erabiltzaileaLortu(pErabiltzailea);
 		return e;
 	}
-
-	public Pelikula pelikulaBilatu(String pIzenb){
-		Pelikula p = agindua.bilatuPelikula(pIzenb);
-		return p;
-	}
 }
 

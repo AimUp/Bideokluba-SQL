@@ -107,8 +107,8 @@ public class Aginduak{
 		DatuBasea.getDatuBasea().setQuery("update Bazkidea set kreditua='"+pKredit+"' where erabiltzailea='"+erabiltzaile+"'");
 	}
 
-	public void pelikulaAlokatu(String erabiltzailea, int pelikulaZenb){
-		//TODO
+	public void pelikulaAlokatu(int idErabil, int pelikulaZenb){
+		DatuBasea.getDatuBasea().setQuery("insert Bazkidea_has_Pelikula1 VALUES ('"+ idErabil +"', '"+ pelikulaZenb +"')");
 	}
 	
 	public void pelikulaItzuli(String erabiltzailea, int pelikulaZenb){

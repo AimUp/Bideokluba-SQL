@@ -20,22 +20,20 @@ public class Bazkidea extends Erabiltzailea{
 		kredituaAldatu(pKreditua);
 	}
 	
-	public void pelikulaAlokatu(String pPelikula){
-		Pelikula pelikula = agindua.bilatuPelikula(pPelikula);
-		if(pelikula == null){
-			//mezua
+	public boolean pelikulaAlokatu(Pelikula pPelikula){
+		boolean alokatuAhalDa = true;
+		if(pPelikula.alokatutaDago()){
+				alokatuAhalDa = false;
 		}else{
-			if(pelikula.alokatutaDago()){
-				//mezua
-			}else{
-				pelikula.egoeraAldatu(Egoera.ALOKATUA.toString());
-			}
+			agindua.pelikulaAlokatu(getId(), Integer.valueOf(pPelikula.getInfo()[0]));
+			pPelikula.egoeraAldatu(Egoera.ALOKATUA.toString());
 		}
+		return alokatuAhalDa;
 	}
 	
-	public void pelikulaItzuli(String pPelikula){
-		Pelikula pelikula = agindua.bilatuPelikula(pPelikula);
-		pelikula.egoeraAldatu(Egoera.LIBRE.toString());
+	public void pelikulaItzuli(Pelikula pPelikula){
+		agindua.pelikulaItzuli(getErabiltzailea(), Integer.valueOf(pPelikula.getInfo()[0]));
+		pPelikula.egoeraAldatu(Egoera.LIBRE.toString());
 	}
 	
 	public ArrayList<Pelikula> alokatuakLortu(){
