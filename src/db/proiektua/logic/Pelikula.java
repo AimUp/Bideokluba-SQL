@@ -35,6 +35,12 @@ public class Pelikula {
 					agindua.pelikulaEzabatu(idPelikula);
 				}
 				break;
+			case "ALOKATUA":
+				egoera = "ALOKATUA";
+				break;
+			case "LIBRE":
+				egoera = "LIBRE";
+				break;
 		}
 		agindua.pelikulaEgoeraAldatu(egoera, idPelikula);
 	}

@@ -91,10 +91,13 @@ public class DatuPertsonalakPanela extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Bazkidea baz = (Bazkidea) Bideokluba.getBideokluba().getUnekoErabiltzailea();
 		try{
-			Aginduak a = new Aginduak();
-			if(a.erabiltzaileaLortu(textFieldak[0].getText())!=null){
-				{throw new BazkideaBadago();}
+			if(!textFieldak[0].getText().equals(baz.getInfo()[1])){
+				Aginduak a = new Aginduak();
+				if(a.erabiltzaileaLortu(textFieldak[0].getText())!=null){
+					{throw new BazkideaBadago();}
+				}
 			}
 			try{
 				for(int x=0; x<textFieldak.length-1; x++){
@@ -109,7 +112,6 @@ public class DatuPertsonalakPanela extends JPanel implements ActionListener{
 					if(!Arrays.equals(pass.getPassword(), passErrepikatu.getPassword())){
 						{throw new PasahitzDesberdina();}
 					}
-					Bazkidea baz = (Bazkidea) Bideokluba.getBideokluba().getUnekoErabiltzailea();
 					String p = new String(pass.getPassword());
 					String[] aldatu = {textFieldak[0].getText(), textFieldak[1].getText(), textFieldak[2].getText(), textFieldak[3].getText(), p};
 					baz.datuPertsonalakAldatu(aldatu);
@@ -122,7 +124,7 @@ public class DatuPertsonalakPanela extends JPanel implements ActionListener{
 				errorea("Erroreren bat datuak sartzean");
 			}
 		}catch(BazkideaBadago ex){
-			errorea("rabiltzaile hau dagoeneko haukeratuta dago");
+			errorea("Erabiltzaile hau dagoeneko haukeratuta dago");
 		}
 	}	
 }

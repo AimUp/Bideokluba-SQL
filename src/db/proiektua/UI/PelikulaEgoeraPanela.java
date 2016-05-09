@@ -112,7 +112,6 @@ public class PelikulaEgoeraPanela extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(comBox.getSelectedIndex());
 		if("EZABATU" == (String)comBox.getSelectedItem()){
 			pelikula.egoeraAldatu("EZABATU");
 		}

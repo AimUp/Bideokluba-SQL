@@ -15,24 +15,35 @@ public class Aginduak{
 	
 	//CREATE
 	public void createBazkidea(char[] pPasahitza, String pErabiltzaile, int pKreditua, int pEgoera, String pBazNoiztik){
-		DatuBasea.getDatuBasea().konexioaHasi();
 		String pass= new String(pPasahitza);
-		System.out.println(pass);
-		DatuBasea.getDatuBasea().setQuery("insert into Bazkidea (erabiltzailea,pasahitza,kreditua,egoera,administratzailea,bazkideaNoiztik) "
-										+ "values ('"+pErabiltzaile+"','"+pass+"','"+pKreditua+"','"+pEgoera+"', '0' ,'"+pBazNoiztik+"')");
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(pErabiltzaile);
+		param.add(pass);		
+		param.add(pKreditua);
+		param.add(pEgoera);
+		param.add(pBazNoiztik);
+		
+		
+		DatuBasea.getDatuBasea().setQuery("insert into Bazkidea (erabiltzailea,pasahitza,kreditua,egoera,bazkideaNoiztik,administratzailea) "
+										+ "values (?,?,?,?,?,0)", param);
 		DatuBasea.getDatuBasea().konexioaItxi();
 	}
 	
-	public void pelikulaBerriBatSartu(String pIzenurua, int pPrezioa, String pEgoera, String pData){
-		DatuBasea.getDatuBasea().konexioaHasi();
-		DatuBasea.getDatuBasea().setQuery("insert into Pelikula (izenburua,prezioa,egoera,data) values ('" + pIzenurua + "', '" + pPrezioa + "', '" + pEgoera + "', '" + pData + "')");
+	public void pelikulaBerriBatSartu(String pIzenburua, int pPrezioa, String pEgoera, String pData){
+		ArrayList<Object> param =new ArrayList<>();
+		param.add(pIzenburua);
+		param.add(pPrezioa);
+		param.add(pEgoera);
+		param.add(pData);
+		DatuBasea.getDatuBasea().setQuery("insert into Pelikula (izenburua,prezioa,egoera,data) values (?,?,?,?)", param);
 		DatuBasea.getDatuBasea().konexioaItxi();
 	}
 	
 	//GET
 	public Erabiltzailea erabiltzaileaLortu(String pErabiltzailea){
-		DatuBasea.getDatuBasea().konexioaHasi();
-		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Bazkidea where erabiltzailea='"+ pErabiltzailea +"'");
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(pErabiltzailea);
+		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Bazkidea where erabiltzailea = ?",param);
 		Erabiltzailea erabiltzailea = null;
 		try {
 			if(rs!=null){
@@ -44,6 +55,19 @@ public class Aginduak{
 					erabiltzailea = new Bazkidea(rs.getInt("idBazkidea"), rs.getString("erabiltzailea"), rs.getString("pasahitza"), rs.getString("izena"), rs.getString("abizena"), rs.getString("helbidea"), rs.getInt("Kreditua"), rs.getString("BazkideaNoiztik"),rs.getBoolean("egoera"));
 				}
 			}
+
+		/*ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Bazkidea where erabiltzailea='"+ pErabiltzailea +"'");
+		Erabiltzailea erabiltzailea = null;
+		try {
+			if(rs!=null){
+				rs.next();
+				if(rs.getBoolean("administratzailea")){
+					erabiltzailea = new Administratzailea(rs.getInt("idBazkidea"), rs.getString("erabiltzailea"), rs.getString("pasahitza"), rs.getString("izena"), rs.getString("abizena"), rs.getString("helbidea"), rs.getInt("Kreditua"), rs.getString("BazkideaNoiztik"), rs.getBoolean("egoera"));
+				}
+				else{
+					erabiltzailea = new Bazkidea(rs.getInt("idBazkidea"), rs.getString("erabiltzailea"), rs.getString("pasahitza"), rs.getString("izena"), rs.getString("abizena"), rs.getString("helbidea"), rs.getInt("Kreditua"), rs.getString("BazkideaNoiztik"),rs.getBoolean("egoera"));
+				}
+			}*/
 		} catch (SQLException e) {
 			erabiltzailea = null;
 		}
@@ -52,9 +76,10 @@ public class Aginduak{
 	}
 	
 	public Pelikula bilatuPelikula(String pIzenburua){
-		DatuBasea.getDatuBasea().konexioaHasi();
 		Pelikula p=null;
-		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Pelikula where izenburua='" + pIzenburua + "'");
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(pIzenburua);
+		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Pelikula where izenburua=?", param);
 		try{
 			if(rs!=null){
 				rs.next();
@@ -68,9 +93,10 @@ public class Aginduak{
 	}
 	
 	public ArrayList<Pelikula> estreinuenZerrendaLortu(){
-		DatuBasea.getDatuBasea().konexioaHasi();
+		ArrayList<Object> param = new ArrayList<>();
+		//param.add("data");
 		ArrayList<Pelikula> pl = new ArrayList<Pelikula>();
-		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Pelikula where data > DATE_ADD(CURDATE(), INTERVAL -30 DAY)");
+		ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Pelikula where data > DATE_ADD(CURDATE(), INTERVAL -30 DAY)", param);
 		try {
 			if(rs!=null){
 				while(rs.next()){
@@ -81,6 +107,7 @@ public class Aginduak{
 				}
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			pl=null;
 		}
 		DatuBasea.getDatuBasea().konexioaItxi();
@@ -88,16 +115,19 @@ public class Aginduak{
 	}
 	
 	public ArrayList<Pelikula> alokatuenZerrendaLortu(int idBazkide){
-		DatuBasea.getDatuBasea().konexioaHasi();
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(idBazkide);
 		ArrayList<Pelikula>lista=new ArrayList<Pelikula>();
 		Pelikula p=null;
-		ResultSet r = DatuBasea.getDatuBasea().getQuery("select Pelikula_idPelikula from Bazkidea_has_Pelikula1 where Bazkidea_idBazkidea='"+idBazkide+"'");
+		ResultSet r = DatuBasea.getDatuBasea().getQuery("select Pelikula_idPelikula from Bazkidea_has_Pelikula1 where Bazkidea_idBazkidea=?", param);
 		
 		try {
 			while(r.next()){
 				if(r!=null){
 					int idPeli = r.getInt("Pelikula_idPelikula");
-					ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Pelikula where idPelikula='" + String.valueOf(idPeli) + "'");
+					param.clear();
+					param.add(idPeli);
+					ResultSet rs = DatuBasea.getDatuBasea().getQuery("select * from Pelikula where idPelikula=?", param);
 					try {
 						while(rs.next()){
 							p = new Pelikula(rs.getString("izenburua"), rs.getInt("idPelikula"), rs.getInt("prezioa"), rs.getString("egoera"), rs.getString("data"));
@@ -118,46 +148,65 @@ public class Aginduak{
 	
 	//Update
 	public void bazkideBatenEgoeraAldatu(String erabiltzailea, boolean pEgoera){
-		DatuBasea.getDatuBasea().konexioaHasi();
 		int ego = 0;
 		if(pEgoera) ego = 1;
-		DatuBasea.getDatuBasea().setQuery("update Bazkidea set egoera='" + ego + "' where erabiltzailea='" + erabiltzailea + "'");
+		
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(ego);
+		param.add(pEgoera);
+		
+		DatuBasea.getDatuBasea().setQuery("update Bazkidea set egoera=? where erabiltzailea=?", param);
 		DatuBasea.getDatuBasea().konexioaItxi();
 	}
 	
 	public void pelikulaEgoeraAldatu(String pEgoera, int pIdPelikula){
-		DatuBasea.getDatuBasea().konexioaHasi();
-		DatuBasea.getDatuBasea().setQuery("update Pelikula set egoera='" + pEgoera + "' where idPelikula='" + pIdPelikula + "'");
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(pEgoera);
+		param.add(pIdPelikula);
+		DatuBasea.getDatuBasea().setQuery("update Pelikula set egoera=? where idPelikula=?", param);
 		DatuBasea.getDatuBasea().konexioaItxi();
 	}
 	
 	public void datuPertsonalakAldatu(String erabiltzailea,String[] aldatu){
-		DatuBasea.getDatuBasea().konexioaHasi();
-		DatuBasea.getDatuBasea().setQuery("update Bazkidea set izena='"+aldatu[1]+"', abizena='"+aldatu[2]+"', helbidea='"+aldatu[3]+"', pasahitza='"+aldatu[4]+"', erabiltzailea='"+aldatu[0]+"' where erabiltzailea='" + erabiltzailea + "'");
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(aldatu[1]);
+		param.add(aldatu[2]);
+		param.add(aldatu[3]);
+		param.add(aldatu[4]);
+		param.add(aldatu[0]);
+		param.add(erabiltzailea);
+		DatuBasea.getDatuBasea().setQuery("update Bazkidea set izena=?, abizena=?, helbidea=?, pasahitza=?, erabiltzailea=? where erabiltzailea=?", param);
 		DatuBasea.getDatuBasea().konexioaItxi();
 	}
 	
 	public void kredituaEguneratu(String erabiltzaile, int pKredit){
-		DatuBasea.getDatuBasea().konexioaHasi();
-		DatuBasea.getDatuBasea().setQuery("update Bazkidea set kreditua='"+pKredit+"' where erabiltzailea='"+erabiltzaile+"'");
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(pKredit);
+		param.add(erabiltzaile);
+		DatuBasea.getDatuBasea().setQuery("update Bazkidea set kreditua=? where erabiltzailea=?", param);
 		DatuBasea.getDatuBasea().konexioaItxi();
 	}
 
 	public void pelikulaAlokatu(int idErabil, int pelikulaZenb){
-		DatuBasea.getDatuBasea().konexioaHasi();
-		DatuBasea.getDatuBasea().setQuery("insert Bazkidea_has_Pelikula1 VALUES ('"+ idErabil +"', '"+ pelikulaZenb +"')");
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(idErabil);
+		param.add(pelikulaZenb);
+		DatuBasea.getDatuBasea().setQuery("insert Bazkidea_has_Pelikula1 VALUES (?, ?)", param);
 		DatuBasea.getDatuBasea().konexioaItxi();
 	}
 	
 	public void pelikulaItzuli(int idErabil, int pelikulaZenb){
-		DatuBasea.getDatuBasea().konexioaHasi();
-		DatuBasea.getDatuBasea().setQuery("delete FROM Bazkidea_has_Pelikula1 WHERE Bazkidea_idBazkidea='"+idErabil+"' and Pelikula_idPelikula ='"+pelikulaZenb+"'");
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(idErabil);
+		param.add(pelikulaZenb);
+		DatuBasea.getDatuBasea().setQuery("delete FROM Bazkidea_has_Pelikula1 WHERE Bazkidea_idBazkidea=? and Pelikula_idPelikula =?", param);
 		DatuBasea.getDatuBasea().konexioaItxi();
 	}
 	
 	public void pelikulaEzabatu(int pelikulaZenb){
-		DatuBasea.getDatuBasea().konexioaHasi();
-		DatuBasea.getDatuBasea().setQuery("delete FROM Pelikula WHERE idPelikula ='"+pelikulaZenb+"'");
+		ArrayList<Object> param = new ArrayList<>();
+		param.add(pelikulaZenb);
+		DatuBasea.getDatuBasea().setQuery("delete FROM Pelikula WHERE idPelikula =?", param);
 		DatuBasea.getDatuBasea().konexioaItxi();
 	}
 }

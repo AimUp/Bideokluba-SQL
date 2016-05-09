@@ -62,7 +62,8 @@ public abstract class Erabiltzailea extends Observable{
 		if(aldatu[2].length()>0) abizena = aldatu[2];
 		if(aldatu[3].length()>0) helbidea = aldatu[3];
 		if(aldatu[4].length()>0) pasahitza = aldatu[4];	
-		agindua.datuPertsonalakAldatu(erabiltzaileZaharra,aldatu);
+		String[] balioBerriak = {erabiltzailea, izena, abizena, helbidea, pasahitza};
+		agindua.datuPertsonalakAldatu(erabiltzaileZaharra,balioBerriak);
 	}
 	
 	protected void kredituaAldatu(int pKred){
